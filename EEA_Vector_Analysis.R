@@ -1047,6 +1047,7 @@ LAP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(66, 63, 60),
@@ -1125,6 +1126,7 @@ AP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(66, 63, 60),
@@ -1204,6 +1206,7 @@ BG_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(66, 63, 60),
@@ -1280,6 +1283,7 @@ POX_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse","June 2021 TM Natural Pulse"), 
     y.position = c(25500, 24500),

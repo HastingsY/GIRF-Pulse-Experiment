@@ -444,7 +444,7 @@ all_pulse %>%
 GM_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "gravimetric.sm",
                                   color = "black", add = c("mean_se", "jitter"),fill = 'sampling.campaign',
                                   palette =c('grey', 'orange', 'blue'),
-                                  title = "Gravimetric Soil Moisture Between Sampling Campaigns", ylab = 'Gravimetric Soil Moisture (%)', 
+                                  title = "Gravimetric Soil Moisture Between Pulse Events", ylab = 'Gravimetric Soil Moisture (%)', 
                                   xlab = "", bxp.errorbar = TRUE, legend.title = "Sampling Campaign", legend = "bottom")+
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
@@ -459,6 +459,7 @@ GM_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "gravi
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(34, 32),
@@ -785,6 +786,7 @@ ph_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "ph",
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(10, 9.8),

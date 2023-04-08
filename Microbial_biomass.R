@@ -336,7 +336,7 @@ get_anova_table(res.aov)
 
 DOC_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.doc",
                                    color = "black", add = c("mean_se", "jitter"),
-                                   title = "Microbial Biomass C Between Pulse Events", ylab = 'Microbial Biomass C (mg C/g soil)', 
+                                   title = "Microbial Biomass C", ylab = 'Microbial Biomass C (mg C/g soil)', 
                                    xlab = "", bxp.errorbar = TRUE,
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
@@ -350,6 +350,7 @@ DOC_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.
         axis.title.y = element_text(size = 32, color = 'black'),
         axis.ticks=element_blank())+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   theme(legend.position = 'bottom', legend.box = 'vertical', 
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
@@ -622,7 +623,7 @@ TDN_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "mb.t
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
                                    legend.title = "Sampling Campaign", legend = "bottom",
-                                   title = "Microbial Biomass N Between Sampling Campaigns", ylab = 'Microbial Biomass N (mg N/g soil)', 
+                                   title = "Microbial Biomass N", ylab = 'Microbial Biomass N (mg N/g soil)', 
                                    xlab = "", bxp.errorbar = TRUE)+
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
@@ -633,6 +634,7 @@ TDN_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "mb.t
         axis.title.y = element_text(size = 32, color = 'black'),
         axis.ticks=element_blank())+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   theme(legend.position = 'bottom', legend.box = 'vertical', 
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
@@ -932,7 +934,7 @@ CN_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "CN",
                                   fill = 'sampling.campaign',
                                   palette =c('grey', 'orange', 'blue'),
                                   legend.title = "Sampling Campaign", legend = "bottom",
-                                  title = "Microbial Biomass C:N Ratio Between Sampling Campaigns", ylab = 'C:N', 
+                                  title = "Microbial Biomass C:N Ratio", ylab = 'C:N', 
                                   xlab = "", bxp.errorbar = TRUE)+
   theme(panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
@@ -943,6 +945,7 @@ CN_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "CN",
         axis.title.y = element_text(size = 32, color = 'black'),
         axis.ticks=element_blank())+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   theme(legend.position = 'bottom', legend.box = 'vertical', 
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
