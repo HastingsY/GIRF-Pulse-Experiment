@@ -4,7 +4,7 @@
 ##Updated: July 14, 2022
 
 library(readxl)
-library(piecewiseSEM)
+library(piecewiseSEM) ##install version 2.1.2 to avoid errors when running summaries on PSEM: require(devtools); install_version("piecewiseSEM", version = "2.1.2", repos = "http://cran.us.r-project.org")
 library(dplyr)
 library(tidyverse)
 library(lavaan)
@@ -308,6 +308,8 @@ June_2021.psem <- psem(## Regressions
   enzyme.pox %~~% enzyme.bg,
   ## Data
   data = as.data.frame(June2021))
+
+multigroup(June_2021.psem)
 
 summary(June_2021.psem)
 
