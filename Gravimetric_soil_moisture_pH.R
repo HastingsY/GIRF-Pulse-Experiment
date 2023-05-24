@@ -297,7 +297,7 @@ June_moisture_treatment <- ggboxplot(June2021, x = "treatment", y = "gravimetric
 ##Todd's Meadow
 summary <- TM2021 %>%
   group_by(treatment, sampling.date) %>%
-  get_summary_stats(gravimetric.sm, type = 'mean_se')
+  get_summary_stats(gravimetric.sm, type = 'full')
 summary
 
 ##check for outliers

@@ -13,7 +13,7 @@ library(semEff)
 library(corrplot)
 
 
-all_pulse <- read_excel("2020-2021 Soils Master File.xlsx", sheet = 'Pulse Data Masterfile (R)')
+all_pulse <- read_excel("Data/2020-2021 Soils Master File.xlsx", sheet = 'Pulse Data Masterfile (R)')
 
 ##June 2021
 June2021 <- filter(all_pulse, sampling.campaign == "June 2021 GIRF Pulse")  %>%
@@ -98,6 +98,7 @@ sept <- corrplot.mixed(S, upper = "ellipse", lower = "number", tl.pos = "lt",
          mar=c(0,0,3,0))
 
 write.csv(S, "SeptCorr.csv")
+
 ##PSEM
 ##fit models - Sept 2020
 sept.om <- lm(percent.organic.matter ~ gravimetric.sm + enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = Sept2020)
@@ -159,8 +160,8 @@ summary(Sept_2020.psem)
 ##test to see which inaction of BG and AP influence one of the linking variables
 summary(psem(lm(percent.organic.matter ~ enzyme.ap*enzyme.bg, data = Sept2020)))
 
-# sem_graph <- plot(Sept_2020.psem, return = TRUE)
-# DiagrammeR::render_graph(sem_graph)
+sem_graph <- plot(Sept_2020.psem, return = TRUE)
+DiagrammeR::render_graph(sem_graph)
 
 ## To change the layout, print out the node table
 sem_graph$nodes_df
@@ -199,7 +200,6 @@ sept.sem <- list(
 
 system.time(
   sept.sem.boot <- bootEff(sept.sem, R = 100, seed = 13, parallel = "no")
-  
 )
 
 ##caluculate effects
