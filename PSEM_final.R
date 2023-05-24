@@ -216,7 +216,7 @@ summary(sept.sem.eff, response = "percent.organic.matter")
 ##find path mediators for indirect path predictor, update predictor and response variables to find mediator effects
 summary(
   semEff(sept.sem.boot, predictor = "gravimetric.sm"),
-  response = "enzyme.lap"
+  response = "inorganic.nitrogen"
 )
 
 
