@@ -54,11 +54,13 @@ colnames(Sept2020_1) <- c("Plot Number", "Bulk Density", "pH", "Total N", "Inorg
                         "Native Protein Concentration" ,"Date", "Plot Type")
 
 ##TM2021
-TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse")
+TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse") 
 
 TM2021$date <- ifelse(TM2021$sampling.date == as.Date('2021-06-17'), 1,
                           ifelse(TM2021$sampling.date == as.Date('2021-06-25'), 2, 3))
 TM2021$treatment[TM2021$treatment == 'Reference'] <- 1
+
+TM2021 <- subset(TM2021, select = -c(8, 14))
 
 TM2021_1 <- subset(TM2021, select = -c(1:3, 5:8, 13:14, 23:24, 27))
 
@@ -264,8 +266,9 @@ june.pox <- lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = June20
 june.pr <- lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
                 enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = June2021)
 
-june.on <- lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter + 
+june.on <- lm(organic.nitrogen ~potential.net.proteolytic.rate + percent.organic.matter + 
                 enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = June2021)
+
 june.in <- lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + 
                 enzyme.bg + enzyme.pox, data = June2021)
 
@@ -432,8 +435,8 @@ tm.pox <- lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = TM2021)
 tm.pr <- lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
                 enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
 
-tm.on <- lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter + 
-                enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
+tm.on <- lm(organic.nitrogen ~  percent.organic.matter  + enzyme.lap + enzyme.ap + 
+              enzyme.bg + enzyme.pox, data = TM2021) ##not enough df to include more than 6 variables; dsep shows that potential.net.proteolytic.rate needs to be in the model; not saying potential.net.proteolytic.rate is not important but we just can't include in model so don't know
 tm.in <- lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + 
                 enzyme.bg + enzyme.pox, data = TM2021)
 
@@ -449,7 +452,7 @@ TM_2021.psem <- psem(## Regressions
   tm.bg, 
   tm.pox, 
   tm.pr, 
-  tm.on, 
+  tm.on, #dSep test had NA for p-value. This indicates it is not significant for path
   tm.in, 
   tm.ph,
   ## Covariances
@@ -479,7 +482,8 @@ TM_2021.psem <- psem(## Regressions
 
 summary(TM_2021.psem) ##not working, run summary on individual models
 
-summary(psem(lm(enzyme.ap ~ enzyme.bg, data = TM2021))) ##lm models on those as as covariances in psem model give a slightly differet result. Use value from actual model but use this to get significance.
+
+#summary(psem(lm(enzyme.ap ~ enzyme.bg, data = TM2021))) ##lm models on those as as covariances in psem model give a slightly differet result. Use value from actual model but use this to get significance.
 
 ## To change the layout, print out the node table
 sem_graph$nodes_df
