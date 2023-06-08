@@ -517,7 +517,7 @@ tm.sem <- list(
   lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = TM2021),
   lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
        enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021),
-  lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter +
+  lm(organic.nitrogen ~ percent.organic.matter +
        enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021),
   lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
 )
