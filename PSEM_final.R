@@ -482,7 +482,7 @@ TM_2021.psem <- psem(## Regressions
   ## Data
   data = as.data.frame(TM2021))
 
-summary(TM_2021.psem) ##not working, run summary on individual models
+summary(TM_2021.psem) 
 
 
 #summary(psem(lm(enzyme.ap ~ enzyme.bg, data = TM2021))) ##lm models on those as as covariances in psem model give a slightly differet result. Use value from actual model but use this to get significance.
