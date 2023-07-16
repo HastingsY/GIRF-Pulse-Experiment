@@ -20,51 +20,53 @@ June2021 <- filter(all_pulse, sampling.campaign == "June 2021 GIRF Pulse")  %>%
   drop_na(mb.doc)
 
 June2021$date <- ifelse(June2021$sampling.date == as.Date('2021-06-17'), 1,
-                            ifelse(June2021$sampling.date == as.Date('2021-06-21'), 2,
-                                   ifelse(June2021$sampling.date == as.Date('2021-06-22'), 3,
-                                          ifelse(June2021$sampling.date == as.Date('2021-06-23'), 4,
-                                                 ifelse(June2021$sampling.date == as.Date('2021-06-24'),5,
-                                                        ifelse(June2021$sampling.date == as.Date('2021-06-28'),6,
-                                                               ifelse(June2021$sampling.date == as.Date('2021-06-30'),7,
-                                                                      ifelse(June2021$sampling.date == as.Date('2021-06-25'),8,
-                                                                             ifelse(June2021$sampling.date == as.Date('2021-06-27'),9,10)))))))))
+                        ifelse(June2021$sampling.date == as.Date('2021-06-21'), 2,
+                               ifelse(June2021$sampling.date == as.Date('2021-06-22'), 3,
+                                      ifelse(June2021$sampling.date == as.Date('2021-06-23'), 4,
+                                             ifelse(June2021$sampling.date == as.Date('2021-06-24'),5,
+                                                    ifelse(June2021$sampling.date == as.Date('2021-06-28'),6,
+                                                           ifelse(June2021$sampling.date == as.Date('2021-06-30'),7,
+                                                                  ifelse(June2021$sampling.date == as.Date('2021-06-25'),8,
+                                                                         ifelse(June2021$sampling.date == as.Date('2021-06-27'),9,10)))))))))
 June2021$plot.type <- ifelse(June2021$treatment == 'Mulch', 1,
-                                 ifelse(June2021$treatment =='Grass',2,
-                                        ifelse(June2021$treatment =='Diverse',3,4)))
+                             ifelse(June2021$treatment =='Grass',2,
+                                    ifelse(June2021$treatment =='Diverse',3,4)))
 
 June2021_1 <- subset(June2021, select = -c(1:3, 5:7, 13:14, 23:24, 27))
 colnames(June2021_1) <- c("Plot Number", "Bulk Density", "pH", "Total N", "Inorganic N", "Organic N", "Gravimetric Soil Moisture", "Organic Matter Content", 
-                        "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
-                        "Native Protein Concentration" ,"Date", "Plot Type")
+                          "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
+                          "Native Protein Concentration" ,"Date", "Plot Type")
 
 ##Sept 2020
 Sept2020 <- filter(all_pulse, sampling.campaign == "GIRF September 2020 Pulse")
 
 Sept2020$date <- ifelse(Sept2020$sampling.date == as.Date('2020-09-03'), 1,
-                            ifelse(Sept2020$sampling.date == as.Date('2020-09-09'), 2,
-                                   ifelse(Sept2020$sampling.date == as.Date('2020-09-11'), 3,
-                                          ifelse(Sept2020$sampling.date == as.Date('2020-09-15'), 4,5))))
+                        ifelse(Sept2020$sampling.date == as.Date('2020-09-09'), 2,
+                               ifelse(Sept2020$sampling.date == as.Date('2020-09-11'), 3,
+                                      ifelse(Sept2020$sampling.date == as.Date('2020-09-15'), 4,5))))
 Sept2020$plot.type <- ifelse(Sept2020$treatment == 'Mulch', 1,
-                                 ifelse(Sept2020$treatment =='Grass',2,3))
+                             ifelse(Sept2020$treatment =='Grass',2,3))
 
 Sept2020_1 <- subset(Sept2020, select = -c(1:3, 5:7, 13:14, 23:24, 27))
 
 colnames(Sept2020_1) <- c("Plot Number", "Bulk Density", "pH", "Total N", "Inorganic N", "Organic N", "Gravimetric Soil Moisture", "Organic Matter Content", 
-                        "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
-                        "Native Protein Concentration" ,"Date", "Plot Type")
+                          "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
+                          "Native Protein Concentration" ,"Date", "Plot Type")
 
 ##TM2021
-TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse")
+TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse") 
 
 TM2021$date <- ifelse(TM2021$sampling.date == as.Date('2021-06-17'), 1,
-                          ifelse(TM2021$sampling.date == as.Date('2021-06-25'), 2, 3))
+                      ifelse(TM2021$sampling.date == as.Date('2021-06-25'), 2, 3))
 TM2021$treatment[TM2021$treatment == 'Reference'] <- 1
+
+TM2021 <- subset(TM2021, select = -c(8, 14))
 
 TM2021_1 <- subset(TM2021, select = -c(1:3, 5:8, 13:14, 23:24, 27))
 
 colnames(TM2021_1) <- c("Plot Number", "pH", "Total N", "Inorganic N", "Organic N", "Gravimetric Soil Moisture", "Organic Matter Content", 
-                      "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
-                      "Native Protein Concentration" ,"Date")
+                        "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
+                        "Native Protein Concentration" ,"Date")
 
 
 ##Sept 2020 Correlation matrix
@@ -93,9 +95,9 @@ S_p.mat <- cor.mtest(Sept2020_1, method = 'pearson')
 
 ##correlation plot with significant only
 sept <- corrplot.mixed(S, upper = "ellipse", lower = "number", tl.pos = "lt",
-         p.mat = S_p.mat, sig.level = 0.05, insig = "blank", tl.col = 'black',
-         order = 'alphabet', addgrid.col = 'grey', 
-         mar=c(0,0,3,0))
+                       p.mat = S_p.mat, sig.level = 0.05, insig = "blank", tl.col = 'black',
+                       order = 'alphabet', addgrid.col = 'grey', 
+                       mar=c(0,0,3,0))
 
 write.csv(S, "SeptCorr.csv")
 
@@ -113,7 +115,7 @@ sept.pox <- lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = Sept20
 sept.pr <- lm(potential.net.proteolytic.rate ~ percent.organic.matter + enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = Sept2020)
 
 sept.on <- lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter + 
-              enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = Sept2020)
+                enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = Sept2020)
 sept.in <- lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = Sept2020)
 
 sept.ph <- lm(ph ~ inorganic.nitrogen, data = Sept2020)
@@ -264,8 +266,9 @@ june.pox <- lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = June20
 june.pr <- lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
                 enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = June2021)
 
-june.on <- lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter + 
+june.on <- lm(organic.nitrogen ~potential.net.proteolytic.rate + percent.organic.matter + 
                 enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = June2021)
+
 june.in <- lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + 
                 enzyme.bg + enzyme.pox, data = June2021)
 
@@ -432,12 +435,12 @@ tm.bg <- lm(enzyme.bg ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = TM2021)
 tm.pox <- lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = TM2021)
 
 tm.pr <- lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
-                enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
+              enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
 
-tm.on <- lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter + 
-                enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
+tm.on <- lm(organic.nitrogen ~  percent.organic.matter  + enzyme.lap + enzyme.ap + 
+              enzyme.bg + enzyme.pox, data = TM2021) ##not enough df to include more than 6 variables; dsep shows that potential.net.proteolytic.rate needs to be in the model; not saying potential.net.proteolytic.rate is not important but we just can't include in model so don't know
 tm.in <- lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + 
-                enzyme.bg + enzyme.pox, data = TM2021)
+              enzyme.bg + enzyme.pox, data = TM2021)
 
 tm.ph <- lm(ph ~ inorganic.nitrogen, data = June2021)
 
@@ -451,7 +454,7 @@ TM_2021.psem <- psem(## Regressions
   tm.bg, 
   tm.pox, 
   tm.pr, 
-  tm.on, 
+  tm.on, #dSep test had NA for p-value. This indicates it is not significant for path
   tm.in, 
   tm.ph,
   ## Covariances
@@ -481,7 +484,8 @@ TM_2021.psem <- psem(## Regressions
 
 summary(TM_2021.psem) ##not working, run summary on individual models
 
-summary(psem(lm(enzyme.ap ~ enzyme.bg, data = TM2021))) ##lm models on those as as covariances in psem model give a slightly differet result. Use value from actual model but use this to get significance.
+
+#summary(psem(lm(enzyme.ap ~ enzyme.bg, data = TM2021))) ##lm models on those as as covariances in psem model give a slightly differet result. Use value from actual model but use this to get significance.
 
 ## To change the layout, print out the node table
 sem_graph$nodes_df
@@ -513,7 +517,7 @@ tm.sem <- list(
   lm(enzyme.pox ~ gravimetric.sm + ph + mb.doc + mb.tdn, data = TM2021),
   lm(potential.net.proteolytic.rate ~ percent.organic.matter + 
        enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021),
-  lm(organic.nitrogen ~ potential.net.proteolytic.rate + percent.organic.matter +
+  lm(organic.nitrogen ~ percent.organic.matter +
        enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021),
   lm(inorganic.nitrogen ~ organic.nitrogen + enzyme.lap + enzyme.ap + enzyme.bg + enzyme.pox, data = TM2021)
 )
