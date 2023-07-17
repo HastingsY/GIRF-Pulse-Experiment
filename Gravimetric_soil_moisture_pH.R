@@ -721,8 +721,8 @@ TM_ph <- ggline(TM2021, x="date", y = "ph", color = "treatment", title = "Todd's
 
 ##Between Sampling Campaigns
 summary <- all_pulse %>%
-  group_by(sampling.campaign) %>%
-  get_summary_stats(ph, type = 'mean_se')
+  #group_by(sampling.campaign) %>%
+  get_summary_stats(ph, type = 'full')
 summary
 
 ##check for outliers
