@@ -355,7 +355,7 @@ DOC_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
-  ylim(0,200)
+  ylim(0,150)
 
 
 # Microbial Biomass N -----------------------------------------------------
@@ -950,7 +950,7 @@ CN_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "CN",
         legend.background = element_rect(size = 0.5), 
         legend.title = element_text(size = 26, face = 'bold', color = 'black'),
         legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
-  ylim(0,75)
+  ylim(0,70)
 
 
 ggarrange(Sept_DOC, June_DOC, TM_DOC,

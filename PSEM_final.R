@@ -160,7 +160,7 @@ Sept_2020.psem <- psem(## Regressions
 summary(Sept_2020.psem)
 
 ##test to see which inaction of BG and AP influence one of the linking variables
-summary(psem(lm(percent.organic.matter ~ enzyme.ap*enzyme.bg, data = Sept2020)))
+summary(psem(lm(percent.organic.matter ~ enzyme.ap*enzyme.bg + enzyme.lap, data = Sept2020)))
 
 sem_graph <- plot(Sept_2020.psem, return = TRUE)
 DiagrammeR::render_graph(sem_graph)

@@ -354,12 +354,17 @@ GIRF_pulse_total_precip <- GIRF2020 %>%
   pull(Precip_Event) %>%
   sum
 
+##prior storm events total precip
+GIRF_pulse_total_precip <- GIRF2020 %>%
+  filter(LocalDateTime > '2020-06-27 00:00:00' & LocalDateTime < '2020-06-30 23:45:00') %>%
+  pull(Precip_Event) %>%
+  sum
+
+
 #daily average
 GIRF2020_daily_avg <- GIRF2020 %>%
   get_summary_stats(Precip_Event, type = 'full')
 
-#average monthly
-GIRF2020_monthly_precip <- sum(GIRF2020$Precip_Event)/5
 
 ##total precip
 GIRF2020_total_precip <- sum(GIRF2020$Precip_Event)
