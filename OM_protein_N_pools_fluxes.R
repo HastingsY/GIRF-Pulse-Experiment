@@ -1,17 +1,18 @@
 ##Organic Matter, Protein Concentration, N pools and fluxes
 ##Yvette Hastings
 ##May 24, 2022
-##Updated: April 2, 2023
+##Updated: 9/18/2023
 
 ## Data analysis sections; quick access using shift + alt + J
 ## 1. Data clean-up
+## 2. Set ggplot theme
 ## 2. % organic matter
 ## 3. Native Protein Concentration
 ## 4. Organic N
 ## 5. Inorganic N
 ## 6. Protein Turnover
 ## 7. Proteolytic Rate
-## 8. Final figures
+## 8. Final legend & figures
 
 library(dplyr)
 library(tidyverse)
@@ -61,6 +62,26 @@ Sept2020 <- filter(all_pulse, sampling.campaign == "GIRF September 2020 Pulse")
 TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse")
 
 
+
+# Set ggplot theme --------------------------------------------------------
+
+plot_theme <- function(){
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
+    plot.background = element_rect((fill = 'white')),
+    axis.text.x=element_text(size = 28, color = 'black'),
+    axis.text.y = element_text(size = 28, color = "black"),
+    axis.title.x = element_text(size = 28, color = 'black'),
+    axis.title.y = element_text(size = 32, color = 'black'),
+    axis.ticks=element_blank(),
+    plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'),
+    legend.position = 'bottom', legend.box = 'vertical', 
+    legend.background = element_rect(size = 0.5), 
+    legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+  )
+}
 
 # % organic matter --------------------------------------------------------
 
@@ -130,19 +151,8 @@ Sept_OM <- ggline(Sept2020, x="date", y = "percent.organic.matter", color = "tre
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
-  labs(x = '', y= '% of Dry Mass') +
+  plot_theme() +
+  labs(x = '', y= '% Organic Matter') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =15, label = "Pre", color = 'black', size = 9) +
@@ -157,20 +167,9 @@ Sept_OM <- ggline(Sept2020, x="date", y = "percent.organic.matter", color = "tre
 Sept_OM_treatment <- ggboxplot(Sept2020, x = "treatment", y = "percent.organic.matter",
                                color = "black", add = c("mean_se", "jitter"),
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
-                               title = "September 2020", ylab = '% of Dry Mass', 
+                               title = "September 2020", ylab = '% Organic Matter', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_bracket(
     xmin = c("Diverse","Diverse"), xmax = c("Grass", "Mulch"),
     y.position = c(11, 9),
@@ -227,18 +226,7 @@ June_OM <- ggline(June2021, x="date", y = "percent.organic.matter", color = "tre
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -250,18 +238,7 @@ June_OM_treatment <- ggboxplot(June2021, x = "treatment", y = "percent.organic.m
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "June 2021", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0,15)
 
 ##Todd's Meadow
@@ -313,18 +290,7 @@ TM_OM <- ggline(TM2021, x="date", y = "percent.organic.matter", color = "treatme
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -337,18 +303,7 @@ TM_OM_treatment <- ggboxplot(TM2021, x = "treatment", y = "percent.organic.matte
                              fill =c('blue'),
                              title = "Todd's Meadow", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0,15)
 
 
@@ -399,20 +354,12 @@ all_pulse %>%
 
 ##plot results
 OM_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "percent.organic.matter",
-                                  color = "black", add = c("mean_se", "jitter"),
-                                  fill =c('grey', 'orange', 'blue'),
+                                  color = "black", add = c("mean_se", "jitter"), fill = "sampling.campaign",
+                                  palette =c('grey', 'orange', 'blue'),
                                   title = "Between Sampling Campaigns", ylab = '', 
-                                  xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
+                                  xlab = "", bxp.errorbar = TRUE, legend.title = "Sampling Campaign", legend = "bottom")+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
     y.position = c(14.5, 13, 11.5),
@@ -488,18 +435,7 @@ Sept_NP <- ggline(Sept2020, x="date",  y = "Native.Protein.Concentration", color
                   add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                   legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =40, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=40, label = "Post", color = 'black', size = 9) +
@@ -518,18 +454,7 @@ Sept_NP_treatment <- ggboxplot(Sept2020, x = "treatment", y = "Native.Protein.Co
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = '', ylab = 'ug protein/g soil', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_bracket(
     xmin = c("Diverse"), xmax = c("Grass"),
     y.position = c(28),
@@ -595,18 +520,7 @@ June_NP <- ggline(June2021, x="date",  y = "Native.Protein.Concentration", color
                   add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                   legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=1, y =40, label = "Pre", color = 'black', size = 9) +
   geom_text(x=2.3, y=40, label = "Post", color = 'black', size = 9) +
@@ -620,18 +534,7 @@ June_NP_treatment <- ggboxplot(June2021, x = "treatment", y = "Native.Protein.Co
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_bracket(
     xmin = c("Grass"), xmax = c("Mulch"),
     y.position = c(32),
@@ -696,18 +599,7 @@ TM_NP <- ggline(TM2021, x="date",  y = "Native.Protein.Concentration", color = "
                 add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                 legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =40, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=40, label = "Post", color = 'black', size = 9) +
@@ -726,18 +618,7 @@ TM_NP_treatment <- ggboxplot(TM2021, x = "treatment", y = "Native.Protein.Concen
                              fill =c('blue'),
                              title = "Todd's Meadow", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 
 ##Between sampling campaigns
@@ -796,18 +677,7 @@ NP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "Nativ
                                   fill =c('grey', 'orange', 'blue'),
                                   title = "", ylab = '', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0, 45) +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -888,23 +758,13 @@ Sept_ON <- ggline(Sept2020, x="date", y = "organic.nitrogen", color = "treatment
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = '', y= 'mg N/g soil') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =5, label = "Pre", color = 'black', size = 9) +
-  geom_text(x=1.85, y=5, label = "Post", color = 'black', size = 9)+ylim (0,5) +
+  geom_text(x=1.85, y=5, label = "Post", color = 'black', size = 9)+
+  ylim (0,5) +
   geom_bracket(
     xmin = c("3", "5", "9"), xmax = c("16", "16", "16"),
     y.position = c(3, 2.5, 2),
@@ -917,18 +777,7 @@ Sept_ON_treatment <- ggboxplot(Sept2020, x = "treatment", y = "organic.nitrogen"
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "September 2020", ylab = 'mg N/g soil', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_bracket(
     xmin = c("Diverse"), xmax = c("Grass"),
     y.position = c(2.5),
@@ -985,18 +834,7 @@ June_ON <- ggline(June2021, x="date", y = "organic.nitrogen", color = "treatment
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1008,18 +846,7 @@ June_ON_treatment <- ggboxplot(June2021, x = "treatment", y = "organic.nitrogen"
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "June 2021", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 ##Todd's Meadow
 summary <- TM2021 %>%
@@ -1070,18 +897,7 @@ TM_ON <- ggline(TM2021, x="date", y = "organic.nitrogen", color = "treatment", t
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1093,18 +909,7 @@ TM_ON_treatment <- ggboxplot(TM2021, x = "treatment", y = "inorganic.nitrogen",
                              fill =c('blue'),
                              title = "Todd's Meadow", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 
 ##Between Sampling Campaigns
@@ -1159,18 +964,7 @@ ON_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "organ
                                   fill =c('grey', 'orange', 'blue'),
                                   title = "Between Sampling Campaigns", ylab = '', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0, 5) +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -1240,18 +1034,7 @@ Sept_IN <- ggline(Sept2020, x="date", y = "inorganic.nitrogen", color = "treatme
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= 'mg N/g soil') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1263,18 +1046,7 @@ Sept_IN_treatment <- ggboxplot(Sept2020, x = "treatment", y = "inorganic.nitroge
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = 'mg N/g soil', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_bracket(
     xmin = c("Diverse"), xmax = c("Grass"),
     y.position = c(0.1),
@@ -1332,18 +1104,7 @@ June_IN <- ggline(June2021, x="date", y = "inorganic.nitrogen", color = "treatme
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1355,18 +1116,7 @@ June_IN_treatment <- ggboxplot(June2021, x = "treatment", y = "inorganic.nitroge
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 ##Todd's Meadow
 summary <- TM2021 %>%
@@ -1424,18 +1174,7 @@ TM_IN <- ggline(TM2021, x="date", y = "inorganic.nitrogen", color = "treatment",
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue'))+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1453,18 +1192,7 @@ TM_IN_treatment <- ggboxplot(TM2021, x = "treatment", y = "inorganic.nitrogen",
                              fill =c('blue'),
                              title = "", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 
 ##Between Sampling Campaigns
@@ -1512,18 +1240,7 @@ IN_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "inorg
                                   fill =c('grey', 'orange', 'blue'),
                                   title = "", ylab = '', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021"))+
   ylim(0, 0.2) 
 
@@ -1583,18 +1300,7 @@ Sept_PT <- ggline(Sept2020, x="date",  y = "potential.turnover.rate", color = "t
                   add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                   legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =1, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=1, label = "Post", color = 'black', size = 9) +
@@ -1607,18 +1313,7 @@ Sept_PT_treatment <- ggboxplot(Sept2020, x = "treatment", y = "potential.turnove
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = '', ylab = 'Time (hours)', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 ##June 2021
 summary <- June2021 %>%
@@ -1670,18 +1365,7 @@ June_PT <- ggline(June2021, x="date",  y = "potential.turnover.rate", color = "t
                   add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                   legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=1, y =1, label = "Pre", color = 'black', size = 9) +
   geom_text(x=2.3, y=1, label = "Post", color = 'black', size = 9) +
@@ -1694,18 +1378,7 @@ June_PT_treatment <- ggboxplot(June2021, x = "treatment", y = "potential.turnove
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0, 1)
 
 ##TM
@@ -1758,18 +1431,7 @@ TM_PT <- ggline(TM2021, x="date",  y = "potential.turnover.rate", color = "treat
                 add = c("mean_se"), palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                 legend.title = "Treatment", legend = 'none', size =1, shape = "treatment", point.size = 5)+
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =1, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=1, label = "Post", color = 'black', size = 9) +
@@ -1782,18 +1444,7 @@ TM_PT_treatment <- ggboxplot(TM2021, x = "treatment", y = "potential.turnover.ra
                              fill =c('blue'),
                              title = "", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 
 ##Between Sampling Campaigns
@@ -1848,18 +1499,7 @@ PT_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "poten
                                   fill =c('grey', 'orange', 'blue'),
                                   title = "Between Sampling Campaigns", ylab = '', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0, 1) +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -1924,18 +1564,7 @@ Sept_PR <- ggline(Sept2020, x="date", y = "potential.net.proteolytic.rate", colo
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= 'µg/g soil per hour') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1947,18 +1576,7 @@ Sept_PR_treatment <- ggboxplot(Sept2020, x = "treatment", y = "potential.net.pro
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = 'µg/g soil per hour', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 ##June
 summary <- June2021 %>%
@@ -2009,18 +1627,7 @@ June_PR <- ggline(June2021, x="date", y = "potential.net.proteolytic.rate", colo
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -2032,18 +1639,7 @@ June_PR_treatment <- ggboxplot(June2021, x = "treatment", y = "potential.net.pro
                                fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                title = "", ylab = '', 
                                xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))
+  plot_theme()
 
 ##Todd's Meadow
 summary <- TM2021 %>%
@@ -2094,18 +1690,7 @@ TM_PR <- ggline(TM2021, x="date", y = "potential.net.proteolytic.rate", color = 
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -2118,18 +1703,7 @@ TM_PR_treatment <- ggboxplot(TM2021, x = "treatment", y = "potential.net.proteol
                              fill =c('blue'),
                              title = "", ylab = '', 
                              xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   ylim(0,50)
 
 
@@ -2185,18 +1759,7 @@ PR_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "poten
                                   fill =c('grey', 'orange', 'blue'),
                                   title = "Between Sampling Campaigns", ylab = '', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse"), xmax = c("June 2021 GIRF Pulse"), 
@@ -2208,35 +1771,88 @@ PR_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "poten
 
 
 
-# final figures -----------------------------------------------------------
+# final legend & figures -----------------------------------------------------------
+legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend = 'bottom', 
+                   size =1, shape = "treatment", point.size = 10, legend.title = "Treatment") +
+  scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4', 'blue')) +
+  scale_shape_manual(values = c(19, 17, 15, 19)) +
+  theme(legend.position = 'bottom', legend.box = 'vertical', 
+        legend.background = element_rect(size = 0.5),  
+        legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+        legend.key.size = unit(5, 'cm'), legend.text = element_text(size = 30))
 
-ggarrange(Sept_OM, June_OM, TM_OM,
-          Sept_NP, June_NP, TM_NP,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+legend1 <- cowplot::get_legend(legend_1)
+legend2 <- cowplot::get_legend(OM_sampling.campaign)
+combined_legends <- cowplot::plot_grid(legend1, legend2, align = "hv", nrow = 1,
+                                       rel_widths = c(0.45, 0.55))
 
-ggarrange(Sept_ON, June_ON, TM_ON,
-          Sept_IN, June_IN, TM_IN,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+OM_NP <- cowplot::plot_grid(Sept_OM + theme(legend.position="none"), 
+                                        June_OM + theme(legend.position="none"), 
+                                        TM_OM + theme(legend.position="none"), 
+                                        Sept_NP + theme(legend.position="none"), 
+                                        June_NP + theme(legend.position="none"), 
+                                        TM_NP + theme(legend.position="none"),
+                                        ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+OM_NP_legend <- cowplot::plot_grid(OM_NP,
+                                      legend1,
+                                      ncol = 1, rel_heights = c(0.9, 0.1))
 
-ggarrange(Sept_OM_treatment, June_OM_treatment, OM_sampling.campaign,
-          Sept_NP_treatment, June_NP_treatment, NP_sampling.campaign,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+ON_IN <- cowplot::plot_grid(Sept_ON + theme(legend.position="none"), 
+                            June_ON + theme(legend.position="none"), 
+                            TM_ON + theme(legend.position="none"), 
+                            Sept_IN + theme(legend.position="none"), 
+                            June_IN + theme(legend.position="none"), 
+                            TM_IN + theme(legend.position="none"),
+                            ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+ON_IN_legend <- cowplot::plot_grid(ON_IN,
+                                   legend1,
+                                   ncol = 1, rel_heights = c(0.9, 0.1))
 
-ggarrange(Sept_ON_treatment, June_ON_treatment, ON_sampling.campaign,
-          Sept_IN_treatment, June_IN_treatment, IN_sampling.campaign,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
 
-ggarrange(Sept_PR, June_PR, TM_PR,
-          Sept_PR_treatment, June_PR_treatment, PR_sampling.campaign,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+OM_NP_treatment <- cowplot::plot_grid(Sept_OM_treatment + theme(legend.position="none"), 
+                                      June_OM_treatment + theme(legend.position="none"), 
+                                      OM_sampling.campaign + theme(legend.position="none"), 
+                                      Sept_NP_treatment + theme(legend.position="none"), 
+                                      June_NP_treatment + theme(legend.position="none"), 
+                                      NP_sampling.campaign + theme(legend.position="none"),
+                            ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+OM_NP_treatment_legend <- cowplot::plot_grid(OM_NP_treatment,
+                                   combined_legends,
+                                   ncol = 1, rel_heights = c(0.9, 0.1))
 
-ggarrange(Sept_PT, June_PT, TM_PT,
-          Sept_PT_treatment, June_PT_treatment, PT_sampling.campaign,
-          nrow = 2, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+ON_IN_treatment <- cowplot::plot_grid(Sept_ON_treatment + theme(legend.position="none"), 
+                                      June_ON_treatment + theme(legend.position="none"), 
+                                      ON_sampling.campaign + theme(legend.position="none"), 
+                                      Sept_IN_treatment + theme(legend.position="none"), 
+                                      June_IN_treatment + theme(legend.position="none"), 
+                                      IN_sampling.campaign + theme(legend.position="none"),
+                                      ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+ON_IN_treatment_legend <- cowplot::plot_grid(ON_IN_treatment,
+                                             combined_legends,
+                                             ncol = 1, rel_heights = c(0.9, 0.1))
+
+PR_treatment <- cowplot::plot_grid(Sept_PR + theme(legend.position="none"), 
+                                   June_PR + theme(legend.position="none"), 
+                                   TM_PR + theme(legend.position="none"), 
+                                   Sept_PR_treatment + theme(legend.position="none"), 
+                                   June_PR_treatment + theme(legend.position="none"), 
+                                   PR_sampling.campaign + theme(legend.position="none"),
+                                      ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+PR_treatment_legend <- cowplot::plot_grid(PR_treatment,
+                                             combined_legends,
+                                             ncol = 1, rel_heights = c(0.9, 0.1))
+
+
+PT_treatment <- cowplot::plot_grid(Sept_PT + theme(legend.position="none"), 
+                                   June_PT + theme(legend.position="none"), 
+                                   TM_PT + theme(legend.position="none"), 
+                                   Sept_PT_treatment + theme(legend.position="none"), 
+                                   June_PT_treatment + theme(legend.position="none"), 
+                                   PT_sampling.campaign + theme(legend.position="none"),
+                                   ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+PT_treatment_legend <- cowplot::plot_grid(PT_treatment,
+                                          combined_legends,
+                                          ncol = 1, rel_heights = c(0.9, 0.1))
+
+
 

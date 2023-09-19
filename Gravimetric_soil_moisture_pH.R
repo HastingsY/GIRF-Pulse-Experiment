@@ -1,17 +1,22 @@
 ##Gravimetric Soil Moisture and pH
 ##Yvette Hastings
 ##April 17, 2022
-##Updated 4/2/2023
+##Updated 9/14/2023
 
 ## Data analysis sections; quick access using shift + alt + J
 ## 1. Data clean-up
-## 2. Gravimetric Soil Moisture
-## 3. pH
+## 2. Set ggplot theme
+## 3. Gravimetric Soil Moisture
+## 4. pH
+## 5. Final Legends
+## 6. Final plots
+
 
 ##load libraries
 library(dplyr)
 library(tidyverse)
 library(ggplot2)
+library(theme)
 library(RColorBrewer)
 library(readxl)
 library(stringr)
@@ -52,6 +57,27 @@ all_pulse$treatment <- factor(all_pulse$treatment, levels = c("Diverse", "Grass"
 June2021 <- filter(all_pulse, sampling.campaign == "June 2021 GIRF Pulse")
 Sept2020 <- filter(all_pulse, sampling.campaign == "GIRF September 2020 Pulse")
 TM2021 <- filter(all_pulse, sampling.campaign == "June 2021 TM Natural Pulse")
+
+
+
+# Set ggplot theme --------------------------------------------------------
+plot_theme <- function(){
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
+    plot.background = element_rect((fill = 'white')),
+    axis.text.x=element_text(size = 28, color = 'black'),
+    axis.text.y = element_text(size = 28, color = "black"),
+    axis.title.x = element_text(size = 28, color = 'black'),
+    axis.title.y = element_text(size = 32, color = 'black'),
+    axis.ticks=element_blank(),
+    plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'),
+    legend.position = 'bottom', legend.box = 'vertical', 
+    legend.background = element_rect(size = 0.5), 
+    legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+  )
+}
 
 
 
@@ -121,18 +147,7 @@ Sept_moisture <- ggline(Sept2020, x="date", y = "gravimetric.sm", color = "treat
                         add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                         size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= 'Gravimetric Soil Moisture (%)') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -149,18 +164,7 @@ Sept_moisture_treatment <- ggboxplot(Sept2020, x = "treatment", y = "gravimetric
                                      fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                      title = "", ylab = 'Gravimetric Moisture (%)', 
                                      xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme() +
   geom_bracket(
     xmin = c("Diverse","Grass"), xmax = c("Mulch", "Mulch"),
     y.position = c(25, 22),
@@ -244,18 +248,7 @@ June_moisture <- ggline(June2021, x="date", y = "gravimetric.sm", color = "treat
                         add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                         size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28,color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 28, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -274,18 +267,7 @@ June_moisture_treatment <- ggboxplot(June2021, x = "treatment", y = "gravimetric
                                      fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                      title = "", ylab = '', 
                                      xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 28, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold'))+
+  plot_theme() +
   geom_bracket(
     xmin = c("Diverse","Grass"), xmax = c("Mulch", "Mulch"),
     y.position = c(30, 28),
@@ -350,18 +332,7 @@ TM_moisture <- ggline(TM2021, x="date", y = "gravimetric.sm", color = "treatment
                       add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                       size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 28, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -379,18 +350,8 @@ TM_moisture_treatment <- ggboxplot(TM2021, x = "treatment", y = "gravimetric.sm"
                                    fill =c('blue'),
                                    title = "", ylab = '', 
                                    xlab = "", bxp.errorbar = TRUE, width = 0.26)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 28, color = 'black'),
-        axis.title.y = element_text(size = 28, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'right', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5, colour = 'black'), 
-        legend.title = element_text(size = 12, face = 'bold')) + ylim(0,30)
+  plot_theme() +
+  ylim(0,30)
 
 
 
@@ -446,19 +407,7 @@ GM_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "gravi
                                   palette =c('grey', 'orange', 'blue'),
                                   title = "Gravimetric Soil Moisture Between Pulse Events", ylab = 'Gravimetric Soil Moisture (%)', 
                                   xlab = "", bxp.errorbar = TRUE, legend.title = "Sampling Campaign", legend = "bottom")+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse"), 
@@ -530,18 +479,7 @@ Sept_ph <- ggline(Sept2020, x="date", y = "ph", color = "treatment", title = "Se
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= 'pH') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -612,18 +550,7 @@ June_ph <- ggline(June2021, x="date", y = "ph", color = "treatment", title = "Ju
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -693,18 +620,7 @@ TM_ph <- ggline(TM2021, x="date", y = "ph", color = "treatment", title = "Todd's
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -773,19 +689,7 @@ ph_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "ph",
                                   title = "pH Between Pulse Events", ylab = 'pH', 
                                   xlab = "", bxp.errorbar = TRUE, 
                                   legend.title = "Sampling Campaign", legend = 'bottom')+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse"), 
@@ -796,16 +700,49 @@ ph_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "ph",
   ylim(7,10)
 
 
-##Final plot arrangements
-ggarrange(Sept_moisture, June_moisture, TM_moisture, 
-          Sept_moisture_treatment, June_moisture_treatment, TM_moisture_treatment, 
-          ncol = 3, nrow = 2, legend = 'none', labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+# Final Legends -----------------------------------------------------------
+##this code is just to extract and add combined legends 
+legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend = 'bottom', 
+                size =1, shape = "treatment", point.size = 8.5, legend.title = "Treatment") +
+  scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4', 'blue')) +
+  scale_shape_manual(values = c(19, 17, 15, 19)) +
+  theme(legend.position = 'bottom', legend.box = 'vertical', 
+        legend.background = element_rect(size = 0.5),  
+        legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+        legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30))
 
-ggarrange(Sept_ph, June_ph, TM_ph,  
-          ncol = 3, nrow = 1, legend = 'none', labels = c('A', 'B', 'C'), 
-          font.label = list(size = 30))
+legend1 <- cowplot::get_legend(legend_1)
+legend2 <- cowplot::get_legend(GM_sampling.campaign)
+combined_legends <- cowplot::plot_grid(legend1, legend2, align = "hv", nrow = 1,
+                                       rel_widths = c(0.55, 0.85))
+
+
+# Final Plots -------------------------------------------------------------
+moisture <- cowplot::plot_grid(Sept_moisture + theme(legend.position="none"), 
+                               June_moisture + theme(legend.position="none"), 
+                               TM_moisture + theme(legend.position="none"), 
+                               Sept_moisture_treatment + theme(legend.position="none"), 
+                               June_moisture_treatment + theme(legend.position="none"), 
+                               TM_moisture_treatment + theme(legend.position="none"),
+                               ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+moisutre_legend <- cowplot::plot_grid(moisture,
+                                      legend1,
+                                      ncol = 1, rel_heights = c(0.95, 0.05))
+
 
 ggarrange(GM_sampling.campaign, ph_sampling.campaign,
           ncol = 2, nrow = 1, common.legend = TRUE, legend = 'bottom', labels = c('A', 'B'), 
           font.label = list(size = 30))
+
+
+pH <- cowplot::plot_grid(Sept_ph + theme(legend.position="none"),
+                         June_ph + theme(legend.position="none"),
+                         TM_ph + theme(legend.position="none"),
+                         nrow = 1, ncol = 3, labels = "AUTO", label_size = 30)
+pH_legend <- cowplot::plot_grid(pH,
+                                legend1,
+                                ncol = 1, rel_heights = c(0.9,0.1))
+
+
+
+

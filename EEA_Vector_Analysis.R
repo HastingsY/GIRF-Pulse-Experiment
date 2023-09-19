@@ -1,13 +1,14 @@
 ##Ecoenzyme SMA and Vector Analysis
 ##Yvette Hastings
 ##April 17, 2022
-##Updated 4/2/2023
+##Updated 9/19/2023
 
 ## Data analysis sections; quick access using shift + alt + J
 ## 1. Data clean-up
+## 2. Set ggplot theme
 ## 2. Ecoenzyme RMANOVA
-## 3. SMA for EEA
-## 4. Vector Analysis
+## 3. Vector Analysis
+## 4. Final legend & figures
 
 ##load libraries
 library(dplyr)
@@ -71,6 +72,26 @@ June2021_1 <- filter(all_pulse, sampling.campaign == "June 2021 GIRF Pulse" | sa
 
 
 
+# Set ggplot theme --------------------------------------------------------
+
+plot_theme <- function(){
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
+    plot.background = element_rect((fill = 'white')),
+    axis.text.x=element_text(size = 28, color = 'black'),
+    axis.text.y = element_text(size = 28, color = "black"),
+    axis.title.x = element_text(size = 28, color = 'black'),
+    axis.title.y = element_text(size = 32, color = 'black'),
+    axis.ticks=element_blank(),
+    plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'),
+    legend.position = 'bottom', legend.box = 'vertical', 
+    legend.background = element_rect(size = 0.5), 
+    legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+  )
+}
+
 # Ecoenzyme RMANOVA -------------------------------------------------------
 ##Sept 2020
 
@@ -130,18 +151,7 @@ LAP_Sept_plot<- ggline(Sept2020, x="date", y = "enzyme.lap", color = "treatment"
                        add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                        size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= expression(LAP~(nmol~g^-1~h^-1))) +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -210,18 +220,7 @@ AP_Sept_plot<- ggline(Sept2020, x="date", y = "enzyme.ap", color = "treatment", 
                       add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                       size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= expression(AP~(nmol~g^-1~h^-1))) +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -284,18 +283,7 @@ BG_Sept_plot<- ggline(Sept2020, x="date", y = "enzyme.bg", color = "treatment", 
                       add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                       size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= expression(BG~(nmol~g^-1~h^-1))) +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -357,18 +345,7 @@ POX_Sept_plot<- ggline(Sept2020, x="date", y = "enzyme.pox", color = "treatment"
                        add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                        size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= expression(POX~(nmol~g^-1~h^-1))) +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -435,19 +412,7 @@ LAP_June_plot<- ggline(June2021, x="date", y = "enzyme.lap", color = "treatment"
                        add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                        size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -513,18 +478,7 @@ AP_June_plot<- ggline(June2021, x="date", y = "enzyme.ap", color = "treatment", 
                       add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                       size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.65, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -593,18 +547,7 @@ BG_June_plot<- ggline(June2021, x="date", y = "enzyme.bg", color = "treatment", 
                       add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                       size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.65, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -666,18 +609,7 @@ POX_June_plot<- ggline(June2021, x="date", y = "enzyme.pox", color = "treatment"
                        add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                        size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -741,18 +673,7 @@ LAP_JuneTM_plot<- ggline(TM2021, x="date", y = "enzyme.lap", color = "treatment"
                          add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                          size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -809,18 +730,7 @@ AP_JuneTM_plot<- ggline(TM2021, x="date", y = "enzyme.ap", color = "treatment", 
                         add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                         size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -885,18 +795,7 @@ BG_JuneTM_plot<- ggline(TM2021, x="date", y = "enzyme.bg", color = "treatment", 
                         add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                         size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -958,18 +857,7 @@ POX_JuneTM_plot<- ggline(TM2021, x="date", y = "enzyme.pox", color = "treatment"
                          add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                          size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('blue')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -1034,19 +922,7 @@ LAP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
                                    legend.title = "Sampling Campaign", legend = "bottom",
                                    title = "LAP Activity Between Sampling Campaigns", ylab = expression(LAP~(nmol~g^-1~h^-1)), 
                                    xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
@@ -1113,19 +989,7 @@ AP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
                                   legend.title = "Sampling Campaign", legend = "bottom",
                                   title = "AP Activity Between Sampling Campaigns", ylab = expression(AP~(nmol~g^-1~h^-1)), 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
@@ -1193,19 +1057,7 @@ BG_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
                                   legend.title = "Sampling Campaign", legend = "bottom",
                                   title = "BG Activity Between Sampling Campaigns", ylab = expression(BG~(nmol~g^-1~h^-1)), 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse", "June 2021 TM Natural Pulse", "June 2021 TM Natural Pulse"), 
@@ -1270,19 +1122,7 @@ POX_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
                                    legend.title = "Sampling Campaign", legend = "bottom",
                                    title = "POX Activity Between Sampling Campaigns", ylab = expression(POX~(nmol~g^-1~h^-1)), 
                                    xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "June 2021 GIRF Pulse"), xmax = c("June 2021 GIRF Pulse","June 2021 TM Natural Pulse"), 
@@ -1327,19 +1167,7 @@ all_length <- ggboxplot(all_pulse, x = "sampling.campaign", y = "length",
                         legend.title = "Sampling Campaign", legend = "bottom", add = c("mean_se", "jitter"),
                         title = "Vector Length Between Pulse Events", ylab = 'Vector Length', 
                         xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse", "GIRF September 2020 Pulse"), xmax = c("June 2021 GIRF Pulse","June 2021 TM Natural Pulse"),
     y.position = c(2.8, 2.6),
@@ -1365,22 +1193,11 @@ pwc <- all_pulse %>%
 all_angle  <- ggboxplot(all_pulse, x = "sampling.campaign", y = "angle",
                         fill = 'sampling.campaign',
                         palette =c('grey', 'orange', 'blue'),
-                        legend.title = "Sampling Campaign", legend = "bottom", add = c("mean_se", "jitter"),
-                        title = "Vector Angle Between Pulse Events", ylab = 'Vector Angle ('*degree* ')', 
+                        legend.title = "Sampling Campaign", legend = "none", add = c("mean_se", "jitter"),
+                        title = "Vector Angle Between Pulse Events", ylab = '', 
                         xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  ylab(expression('Vector Angle (°)')) +
+  plot_theme() +
   geom_bracket(
     xmin = c("GIRF September 2020 Pulse"), xmax = c("June 2021 GIRF Pulse"),
     y.position = c(80),
@@ -1398,19 +1215,7 @@ vector_sampling.campaign <- ggplot(all_pulse, aes(x=lnBG_lnAP, y=lnBG_lnLAP, fil
   scale_color_manual(values = c('grey', 'orange', 'blue')) +
   scale_shape_manual(values = c(22,24,25))+
   theme_classic() +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = 'black', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'none', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
+  plot_theme() +
   guides(color = guide_legend(order =1), shape = guide_legend(order = 2),
          linetype= guide_legend(order = 3)) +
   labs(x = 'lnBG/lnAP', y = 'lnBG/lnLAP',
@@ -1425,23 +1230,57 @@ vector_sampling.campaign <- ggplot(all_pulse, aes(x=lnBG_lnAP, y=lnBG_lnLAP, fil
 
 
 
-ggarrange(LAP_Sept_plot, LAP_June_plot, LAP_JuneTM_plot,
-          AP_Sept_plot, AP_June_plot, AP_JuneTM_plot,
-          ncol = 3, nrow = 2, legend = 'none', labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+# Final legend & figures --------------------------------------------------
 
-ggarrange(BG_Sept_plot, BG_June_plot, BG_JuneTM_plot,
-          POX_Sept_plot, POX_June_plot, POX_JuneTM_plot,
-          ncol = 3, nrow = 2, legend = 'none', labels = c('A', 'B', 'C', 'D', 'E', 'F'), 
-          font.label = list(size = 30))
+legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend = 'bottom', 
+                   size =1, shape = "treatment", point.size = 8.5, legend.title = "Treatment") +
+  scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4', 'blue')) +
+  scale_shape_manual(values = c(19, 17, 15, 19)) +
+  theme(legend.position = 'bottom', legend.box = 'vertical', 
+        legend.background = element_rect(size = 0.5),  
+        legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+        legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30))
 
-ggarrange(LAP_sampling.campaign, AP_sampling.campaign,
-          BG_sampling.campaign, POX_sampling.campaign,
-          ncol = 2, nrow = 2, legend = 'bottom', common.legend = TRUE, labels = c('A', 'B', 'C', 'D'), 
-          font.label = list(size = 30))
+legend1 <- cowplot::get_legend(legend_1)
+legend2 <- cowplot::get_legend(vector_sampling.campaign)
+legend3 <- cowplot::get_legend(LAP_sampling.campaign)
+combined_legends <- cowplot::plot_grid(legend1, legend3, align = "hv", nrow = 1,
+                                       rel_widths = c(0.55, 0.85))
 
-ggarrange(BG_LAP_2020, BG_LAP_2021, BG_LAP_sampling.campaign,
-          BG_AP_2020, BG_AP_2021, BG_AP_sampling.campaign,
-          LAP_AP_2020, LAP_AP_2021, LAP_AP_sampling.campaign,
-          ncol = 3, nrow = 3, legend = 'none', labels = c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'), 
-          font.label = list(size = 30))
+LAP_AP <- cowplot::plot_grid(LAP_Sept_plot + theme(legend.position="none"), 
+                               LAP_June_plot + theme(legend.position="none"), 
+                               LAP_JuneTM_plot + theme(legend.position="none"), 
+                               AP_Sept_plot + theme(legend.position="none"), 
+                               AP_June_plot + theme(legend.position="none"), 
+                               AP_JuneTM_plot + theme(legend.position="none"),
+                               ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+LAP_AP_legend <- cowplot::plot_grid(LAP_AP,
+                                      legend1,
+                                      ncol = 1, rel_heights = c(0.90, 0.05))
+
+
+BG_POX <- cowplot::plot_grid(BG_Sept_plot + theme(legend.position="none"), 
+                             BG_June_plot + theme(legend.position="none"), 
+                             BG_JuneTM_plot + theme(legend.position="none"), 
+                             POX_Sept_plot + theme(legend.position="none"), 
+                             POX_June_plot + theme(legend.position="none"), 
+                             POX_JuneTM_plot + theme(legend.position="none"),
+                             ncol = 3, nrow = 2, labels = "AUTO", label_size = 30)
+BG_POX_legend <- cowplot::plot_grid(BG_POX,
+                                    legend1,
+                                    ncol = 1, rel_heights = c(0.90, 0.05))
+
+
+EEA_sampling_campaign <- cowplot::plot_grid(LAP_sampling.campaign + theme(legend.position="none"), 
+                                            AP_sampling.campaign + theme(legend.position="none"), 
+                                            BG_sampling.campaign + theme(legend.position="none"), 
+                                            POX_sampling.campaign + theme(legend.position="none"),
+                                            ncol = 2, nrow = 2, labels = "AUTO", label_size = 30)
+EEA_sampling_campaign_legend <- cowplot::plot_grid(EEA_sampling_campaign,
+                                    legend3,
+                                    ncol = 1, rel_heights = c(0.90, 0.05))
+
+
+##Final vector analysis figure finished using PowerPoint; combined Vector Length, Vector Angle, and biplot
+
+

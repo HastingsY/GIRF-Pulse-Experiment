@@ -1,13 +1,15 @@
 ##Microbial Biomass C, N, and C:N
 ##Yvette Hastings
 ##April 17, 2022
-##Updated 4/2/2023
+##Updated 9/18/2023
 
 ## Data analysis sections; quick access using shift + alt + J
 ## 1. Data clean-up
-## 2. Microbial Biomass C
-## 3. Microbial Biomass N
-## 4. Microbial Biomass C:N
+## 2. Set ggplot theme
+## 3. Microbial Biomass C
+## 4. Microbial Biomass N
+## 5. Microbial Biomass C:N
+## 6. Final legend & figures
 
 ##load libraries
 library(dplyr)
@@ -65,6 +67,26 @@ TM2021_1 <- TM2021[-c(1),] ##remove MBC and CN outlier
 all_pulse1 <- all_pulse[-c(46),] #remove outlier in TM DOC for sampling campaign comparison
 
 
+
+# Set ggplot theme --------------------------------------------------------
+
+plot_theme <- function(){
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
+    plot.background = element_rect((fill = 'white')),
+    axis.text.x=element_text(size = 28, color = 'black'),
+    axis.text.y = element_text(size = 28, color = "black"),
+    axis.title.x = element_text(size = 28, color = 'black'),
+    axis.title.y = element_text(size = 32, color = 'black'),
+    axis.ticks=element_blank(),
+    plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'),
+    legend.position = 'bottom', legend.box = 'vertical', 
+    legend.background = element_rect(size = 0.5), 
+    legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+  )
+}
 
 # Microbial Biomass C -----------------------------------------------------
 ##Sept 2020
@@ -134,18 +156,7 @@ Sept_DOC <- ggline(Sept2020, x="date", y = "mb.doc", color = "treatment",
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme() +
   labs(x = '', y= 'Microbial Biomass C (mg C/g soil)') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -204,18 +215,7 @@ June_DOC <- ggline(June2021, x="date", y = "mb.doc", color = "treatment",
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -273,18 +273,7 @@ TM_DOC <- ggline(TM2021_1, x="date", y = "mb.doc", color = "treatment",
                  add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                  size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -341,20 +330,8 @@ DOC_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
                                    legend.title = "Sampling Campaign", legend = "bottom")+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
   ylim(0,150)
 
 
@@ -417,18 +394,7 @@ Sept_TDN <- ggline(Sept2020, x="date", y = "mb.tdn", color = "treatment", title 
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = '', y= 'Microbial Biomass N (mg N/g soil)') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -491,18 +457,7 @@ June_TDN <- ggline(June2021, x="date", y = "mb.tdn", color = "treatment", title 
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -556,18 +511,7 @@ TM_TDN <- ggline(TM2021, x="date", y = "mb.tdn", color = "treatment", title = ""
                  add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                  size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = '', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -625,20 +569,8 @@ TDN_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "mb.t
                                    legend.title = "Sampling Campaign", legend = "bottom",
                                    title = "Microbial Biomass N", ylab = 'Microbial Biomass N (mg N/g soil)', 
                                    xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20)) +
   ylim(0,30)
 
 
@@ -706,18 +638,7 @@ Sept_CN <- ggline(Sept2020, x="date", y = "CN", color = "treatment", title = "",
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= 'C:N') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -786,18 +707,7 @@ June_CN <- ggline(June2021, x="date", y = "CN", color = "treatment", title = "",
                   add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                   size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.6, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -861,18 +771,7 @@ TM_CN <- ggline(TM2021_1, x="date", y = "CN", color = "treatment", title = "",
                 add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                 size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 16, face = 'bold', color = 'black'))+
+  plot_theme()+
   labs(x = 'Day of Pulse', y= '') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
@@ -936,28 +835,40 @@ CN_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "CN",
                                   legend.title = "Sampling Campaign", legend = "bottom",
                                   title = "Microbial Biomass C:N Ratio", ylab = 'C:N', 
                                   xlab = "", bxp.errorbar = TRUE)+
-  theme(panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), axis.line = element_line(colour = '#7F7F7F', size = 1), 
-        plot.background = element_rect((fill = 'white')),
-        axis.text.x=element_text(size = 28, color = 'black'),
-        axis.text.y = element_text(size = 28, color = "black"),
-        axis.title.x = element_text(size = 32, color = 'black'),
-        axis.title.y = element_text(size = 32, color = 'black'),
-        axis.ticks=element_blank())+
-  theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'))+
+  plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
-  theme(legend.position = 'bottom', legend.box = 'vertical', 
-        legend.background = element_rect(size = 0.5), 
-        legend.title = element_text(size = 26, face = 'bold', color = 'black'),
-        legend.key.size = unit(1, 'cm'), legend.text = element_text(size = 20))+
   ylim(0,70)
 
 
-ggarrange(Sept_DOC, June_DOC, TM_DOC,
-          Sept_TDN, June_TDN, TM_TDN,
-          Sept_CN, June_CN, TM_CN,
-          nrow = 3, ncol = 3, legend = "none", labels = c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'), 
-          font.label = list(size = 30))
+
+# Final legend & figures --------------------------------------------------
+legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend = 'bottom', 
+                   size =1, shape = "treatment", point.size = 10, legend.title = "Treatment") +
+  scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4', 'blue')) +
+  scale_shape_manual(values = c(19, 17, 15, 19)) +
+  theme(legend.position = 'bottom', legend.box = 'vertical', 
+        legend.background = element_rect(size = 0.5),  
+        legend.title = element_text(size = 30, face = 'bold', color = 'black'),
+        legend.key.size = unit(5, 'cm'), legend.text = element_text(size = 30))
+
+legend1 <- cowplot::get_legend(legend_1)
+
+
+DOC_TDN_CN <- cowplot::plot_grid(Sept_DOC + theme(legend.position="none"), 
+                                 June_DOC + theme(legend.position="none"), 
+                                 TM_DOC + theme(legend.position="none"), 
+                                 Sept_TDN + theme(legend.position="none"), 
+                                 June_TDN + theme(legend.position="none"), 
+                                 TM_TDN + theme(legend.position="none"),
+                                 Sept_CN + theme(legend.position="none"), 
+                                 June_CN + theme(legend.position="none"), 
+                                 TM_CN + theme(legend.position="none"),
+                            ncol = 3, nrow = 3, labels = "AUTO", label_size = 30)
+DOC_TDN_CN_legend <- cowplot::plot_grid(DOC_TDN_CN,
+                                   legend1,
+                                   ncol = 1, rel_heights = c(0.9, 0.1))
+
+
 
 ggarrange(DOC_sampling.campaign, TDN_sampling.campaign, CN_sampling.campaign,
           nrow = 1, ncol = 3, legend = "bottom", common.legend = TRUE, labels = c('A', 'B', 'C'), 
