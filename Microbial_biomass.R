@@ -98,7 +98,7 @@ summary
 ##check for outliers
 ggboxplot(Sept2020, x = "date", y = "mb.doc",
           color = "treatment", palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'), shape = "treatment", add = c("mean_se", "jitter"),
-          title = "Microbial Biomass C by Treatment over Sept 2020 Pulse Experiment", ylab = 'DOC (mg C/g soil)', 
+          title = "Microbial Biomass C by Treatment over Sept 2020 Pulse Experiment", ylab = 'DOC (µg C/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -157,7 +157,7 @@ Sept_DOC <- ggline(Sept2020, x="date", y = "mb.doc", color = "treatment",
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
   plot_theme() +
-  labs(x = '', y= 'Microbial Biomass C (mg C/g soil)') +
+  labs(x = '', y= 'Microbial Biomass C (µg C/g soil)') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =150, label = "Pre", color = 'black', size = 9) +
@@ -174,7 +174,7 @@ summary
 ##check for outliers
 ggboxplot(June2021, x = "date", y = "mb.doc",
           color = "treatment", palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'), shape = "treatment", add = c("mean_se", "jitter"),
-          title = "DOC by Treatment over June 2021 Pulse Experiment", ylab = 'DOC (mg C/g soil)', 
+          title = "DOC by Treatment over June 2021 Pulse Experiment", ylab = 'DOC (µg C/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -233,7 +233,7 @@ summary
 ##check for outliers
 ggboxplot(TM2021_1, x = "date", y = "mb.doc",
           color = "treatment", palette = 'blue', shape = "treatment", add = c("mean_se", "jitter"),
-          title = "DOC by Treatment over June TM 2021 Natural Pulse", ylab = 'DOC (mg C/g soil)', 
+          title = "DOC by Treatment over June TM 2021 Natural Pulse", ylab = 'DOC (µg C/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -290,7 +290,7 @@ summary
 ##check for outliers
 ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.doc",
           color = "sampling.campaign", palette = c('grey', 'orange', 'blue'), shape = "sampling.campaign", add = c("mean_se", "jitter"),
-          title = "DOC between Experimental and Natural Pulses", ylab = 'DOC (mg C/g soil)', 
+          title = "DOC between Experimental and Natural Pulses", ylab = 'DOC (µg C/g soil)', 
           xlab = "", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -325,7 +325,7 @@ get_anova_table(res.aov)
 
 DOC_sampling.campaign <- ggboxplot(all_pulse1, x = "sampling.campaign", y = "mb.doc",
                                    color = "black", add = c("mean_se", "jitter"),
-                                   title = "Microbial Biomass C", ylab = 'Microbial Biomass C (mg C/g soil)', 
+                                   title = "Microbial Biomass C", ylab = 'Microbial Biomass C (µg C/g soil)', 
                                    xlab = "", bxp.errorbar = TRUE,
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
@@ -347,7 +347,7 @@ summary
 ##check for outliers
 ggboxplot(Sept2020, x = "date", y = "mb.tdn",
           color = "treatment", palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'), shape = "treatment", add = c("mean_se", "jitter"),
-          title = "TDN by Treatment over Sept 2020 Pulse Experiment", ylab = 'TDN (mg N/g soil)', 
+          title = "TDN by Treatment over Sept 2020 Pulse Experiment", ylab = 'TDN (µg N/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -395,7 +395,7 @@ Sept_TDN <- ggline(Sept2020, x="date", y = "mb.tdn", color = "treatment", title 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
   plot_theme()+
-  labs(x = '', y= 'Microbial Biomass N (mg N/g soil)') +
+  labs(x = '', y= 'Microbial Biomass N (µg N/g soil)') +
   labs(shape = 'Plot Treatment', color = "Plot Treatment")  +
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =30, label = "Pre", color = 'black', size = 9) +
@@ -416,7 +416,7 @@ summary
 ##check for outliers
 ggboxplot(June2021, x = "date", y = "mb.tdn",
           color = "treatment", palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'), shape = "treatment", add = c("mean_se", "jitter"),
-          title = "TDN by Treatment over June 2021 Pulse Experiment", ylab = 'TDN (mg N/g soil)', 
+          title = "TDN by Treatment over June 2021 Pulse Experiment", ylab = 'TDN (µg N/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -475,7 +475,7 @@ summary
 ##check for outliers
 ggboxplot(TM2021, x = "date", y = "mb.tdn",
           color = "treatment", palette = 'blue', shape = "treatment", add = c("mean_se", "jitter"),
-          title = "TDN by Treatment over June 2021 Pulse Experiment", ylab = 'TDN (mg N/g soil)', 
+          title = "TDN by Treatment over June 2021 Pulse Experiment", ylab = 'TDN (µg N/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)
 
 outliers <- TM2021 %>%
@@ -529,7 +529,7 @@ summary
 ##check for outliers
 ggboxplot(all_pulse, x = "sampling.campaign", y = "mb.tdn",
           color = "sampling.campaign", palette = c('grey', 'orange', 'blue'), shape = "sampling.campaign", add = c("mean_se", "jitter"),
-          title = "DOC between Experimental and Natural Pulses", ylab = 'DOC (mg C/g soil)', 
+          title = "DOC between Experimental and Natural Pulses", ylab = 'DOC (µg C/g soil)', 
           xlab = "", bxp.errorbar = TRUE)+
   theme(plot.title = element_text(hjust = 0.5, face = 'bold', size = 20))+
   theme(legend.position = 'right', legend.box = 'vertical', 
@@ -567,7 +567,7 @@ TDN_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "mb.t
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
                                    legend.title = "Sampling Campaign", legend = "bottom",
-                                   title = "Microbial Biomass N", ylab = 'Microbial Biomass N (mg N/g soil)', 
+                                   title = "Microbial Biomass N", ylab = 'Microbial Biomass N (µg N/g soil)', 
                                    xlab = "", bxp.errorbar = TRUE)+
   plot_theme()+
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
