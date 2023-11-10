@@ -32,6 +32,8 @@ June2021$plot.type <- ifelse(June2021$treatment == 'Mulch', 1,
                              ifelse(June2021$treatment =='Grass',2,
                                     ifelse(June2021$treatment =='Diverse',3,4)))
 
+June2021$CN <- June2021$mb.doc / June2021$mb.tdn
+
 June2021_1 <- subset(June2021, select = -c(1:3, 5:7, 13:14, 23:24, 27))
 colnames(June2021_1) <- c("Plot Number", "Bulk Density", "pH", "Total N", "Inorganic N", "Organic N", "Gravimetric Soil Moisture", "Organic Matter Content", 
                           "Microbial Biomass C", "Microbial Biomass N", "LAP", "AP", "BG", "POX", "Proteolytic Rate", "Protein Turnover Rate", 
@@ -47,6 +49,8 @@ Sept2020$date <- ifelse(Sept2020$sampling.date == as.Date('2020-09-03'), 1,
 Sept2020$plot.type <- ifelse(Sept2020$treatment == 'Mulch', 1,
                              ifelse(Sept2020$treatment =='Grass',2,3))
 
+Sept2020$CN <- Sept2020$mb.doc / Sept2020$mb.tdn
+
 Sept2020_1 <- subset(Sept2020, select = -c(1:3, 5:7, 13:14, 23:24, 27))
 
 colnames(Sept2020_1) <- c("Plot Number", "Bulk Density", "pH", "Total N", "Inorganic N", "Organic N", "Gravimetric Soil Moisture", "Organic Matter Content", 
@@ -61,6 +65,7 @@ TM2021$date <- ifelse(TM2021$sampling.date == as.Date('2021-06-17'), 1,
 TM2021$treatment[TM2021$treatment == 'Reference'] <- 1
 
 TM2021 <- subset(TM2021, select = -c(8, 14))
+TM2021$CN <- TM2021$mb.doc / TM2021$mb.tdn
 
 TM2021_1 <- subset(TM2021, select = -c(1:3, 5:8, 13:14, 23:24, 27))
 
