@@ -75,7 +75,7 @@ plot_theme <- function(){
     legend.position = 'bottom', legend.box = 'vertical', 
     legend.background = element_rect(size = 0.5), 
     legend.title = element_text(size = 30, face = 'bold', color = 'black'),
-    legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30)
+    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
   )
 }
 
