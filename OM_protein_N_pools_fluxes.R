@@ -89,7 +89,7 @@ plot_theme <- function(){
 ##Sept 2020
 
 summary <- Sept2020 %>%
-  group_by(treatment, date) %>%
+  group_by(treatment, sampling.date) %>%
   get_summary_stats(percent.organic.matter, type = 'mean_se')
 summary
 
@@ -1197,7 +1197,7 @@ TM_IN_treatment <- ggboxplot(TM2021, x = "treatment", y = "inorganic.nitrogen",
 
 ##Between Sampling Campaigns
 summary <- all_pulse %>%
-  group_by(treatment, date, sampling.campaign) %>%
+  group_by(sampling.campaign) %>%
   get_summary_stats(inorganic.nitrogen, type = 'mean_se')
 summary
 
@@ -1449,7 +1449,7 @@ TM_PT_treatment <- ggboxplot(TM2021, x = "treatment", y = "potential.turnover.ra
 
 ##Between Sampling Campaigns
 summary <- all_pulse %>%
-  group_by(treatment, date, sampling.campaign) %>%
+  group_by(sampling.campaign) %>%
   get_summary_stats(potential.turnover.rate, type = 'mean_se')
 summary
 
@@ -1516,8 +1516,8 @@ PT_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "poten
 
 
 ##Sept 2020
-summary <- all_pulse %>%
-  group_by(sampling.campaign, date) %>%
+summary <- Sept2020 %>%
+  group_by(treatment, sampling.date) %>%
   get_summary_stats(potential.net.proteolytic.rate, type = 'mean_se')
 summary
 
