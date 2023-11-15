@@ -75,7 +75,7 @@ plot_theme <- function(){
     legend.position = 'bottom', legend.box = 'vertical', 
     legend.background = element_rect(size = 0.5), 
     legend.title = element_text(size = 30, face = 'bold', color = 'black'),
-    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+    legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30)
   )
 }
 
@@ -161,7 +161,8 @@ Sept_moisture <- ggline(Sept2020, x="date", y = "gravimetric.sm", color = "treat
 
 Sept_moisture_treatment <- ggboxplot(Sept2020, x = "treatment", y = "gravimetric.sm",
                                      color = "black", add = c("mean_se", "jitter"),
-                                     fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
+                                     fill = 'treatment',
+                                     palette =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                      title = "", ylab = 'Gravimetric Moisture (%)', 
                                      xlab = "", bxp.errorbar = TRUE)+
   plot_theme() +
@@ -264,7 +265,8 @@ June_moisture <- ggline(June2021, x="date", y = "gravimetric.sm", color = "treat
 ##treatment plot
 June_moisture_treatment <- ggboxplot(June2021, x = "treatment", y = "gravimetric.sm",
                                      color = "black", add = c("mean_se", "jitter"),
-                                     fill =c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
+                                     fill = 'treatment',
+                                     palette = c('darkgoldenrod1', 'forestgreen', 'chocolate4'),
                                      title = "", ylab = '', 
                                      xlab = "", bxp.errorbar = TRUE)+
   plot_theme() +
@@ -347,7 +349,8 @@ TM_moisture <- ggline(TM2021, x="date", y = "gravimetric.sm", color = "treatment
 
 TM_moisture_treatment <- ggboxplot(TM2021, x = "treatment", y = "gravimetric.sm",
                                    color = "black", add = c("mean_se", "jitter"),
-                                   fill =c('blue'),
+                                   fill = 'treatment',
+                                   palette = c('blue'),
                                    title = "", ylab = '', 
                                    xlab = "", bxp.errorbar = TRUE, width = 0.26)+
   plot_theme() +
