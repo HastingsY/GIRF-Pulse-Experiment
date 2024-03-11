@@ -88,7 +88,7 @@ plot_theme <- function(){
     legend.position = 'bottom', legend.box = 'vertical', 
     legend.background = element_rect(size = 0.5), 
     legend.title = element_text(size = 30, face = 'bold', color = 'black'),
-    legend.key.size = unit(2, 'cm'), legend.text = element_text(size = 30)
+    legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30)
   )
 }
 
@@ -920,8 +920,9 @@ LAP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
                                    legend.title = "Sampling Campaign", legend = "bottom",
-                                   title = "LAP Activity Between Sampling Campaigns", ylab = expression(LAP~(nmol~g^-1~h^-1)), 
+                                   title = "LAP Activity Between Sampling Campaigns", 
                                    xlab = "", bxp.errorbar = TRUE)+
+  labs(y = expression(LAP~(nmol~g^-1~h^-1))) +
   plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -987,8 +988,9 @@ AP_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
                                   fill = 'sampling.campaign',
                                   palette =c('grey', 'orange', 'blue'),
                                   legend.title = "Sampling Campaign", legend = "bottom",
-                                  title = "AP Activity Between Sampling Campaigns", ylab = expression(AP~(nmol~g^-1~h^-1)), 
+                                  title = "AP Activity Between Sampling Campaigns",  
                                   xlab = "", bxp.errorbar = TRUE)+
+  labs(y = expression(AP~(nmol~g^-1~h^-1)))+
   plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -1055,8 +1057,9 @@ BG_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzym
                                   fill = 'sampling.campaign',
                                   palette =c('grey', 'orange', 'blue'),
                                   legend.title = "Sampling Campaign", legend = "bottom",
-                                  title = "BG Activity Between Sampling Campaigns", ylab = expression(BG~(nmol~g^-1~h^-1)), 
+                                  title = "BG Activity Between Sampling Campaigns",  
                                   xlab = "", bxp.errorbar = TRUE)+
+  labs(y = expression(BG~(nmol~g^-1~h^-1)))+
   plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
@@ -1120,8 +1123,9 @@ POX_sampling.campaign <- ggboxplot(all_pulse, x = "sampling.campaign", y = "enzy
                                    fill = 'sampling.campaign',
                                    palette =c('grey', 'orange', 'blue'),
                                    legend.title = "Sampling Campaign", legend = "bottom",
-                                   title = "POX Activity Between Sampling Campaigns", ylab = expression(POX~(nmol~g^-1~h^-1)), 
+                                   title = "POX Activity Between Sampling Campaigns", 
                                    xlab = "", bxp.errorbar = TRUE)+
+  labs(y = expression(POX~(nmol~g^-1~h^-1))) +
   plot_theme() +
   scale_x_discrete(labels=c("GIRF September 2020 Pulse" = "GIRF Sept 2020", "June 2021 GIRF Pulse" = "GIRF June 2021", "June 2021 TM Natural Pulse" = "Reference June 2021")) +
   geom_bracket(
