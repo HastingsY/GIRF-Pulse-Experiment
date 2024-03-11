@@ -231,7 +231,7 @@ summary <- TM2021_1 %>%
 summary
 
 ##check for outliers
-ggboxplot(TM2021_1, x = "date", y = "mb.doc",
+ggboxplot(TM2021, x = "date", y = "mb.doc",
           color = "treatment", palette = 'blue', shape = "treatment", add = c("mean_se", "jitter"),
           title = "DOC by Treatment over June TM 2021 Natural Pulse", ylab = 'DOC (µg C/g soil)', 
           xlab = "Day of Pulse", bxp.errorbar = TRUE)+
