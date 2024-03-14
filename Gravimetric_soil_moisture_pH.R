@@ -714,9 +714,9 @@ legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend =
         legend.title = element_text(size = 30, face = 'bold', color = 'black'),
         legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30))
 
-legend1 <- cowplot::get_legend(legend_1)
-legend2 <- cowplot::get_legend(GM_sampling.campaign)
-combined_legends <- cowplot::plot_grid(legend1, legend2, align = "hv", nrow = 1,
+legend1 <- get_legend(legend_1)
+legend2 <- get_legend(GM_sampling.campaign)
+combined_legends <- plot_grid(legend1, legend2, align = "hv", nrow = 1,
                                        rel_widths = c(0.55, 0.85))
 
 
