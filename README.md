@@ -1,4 +1,4 @@
-# MicrobialBiomass_EEA
+# GIRF Pulse Experiment
 R code for Hastings, Y. D. (2022). Green Infrastructure Microbial Community Response to Simulated Pulse Precipitation Events in the Semi-Arid Western United States (Master's thesis, The University of Utah). This study was supported by a grant from the US National Science Foundation (DEB 2006308).
 
 R code for and Hastings, Y. D., et al. Green Infrastructure Microbial Community Response to Simulated Pulse Precipitation Events in the Semi-Arid Western United States. In preparation.
