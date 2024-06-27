@@ -152,7 +152,7 @@ Sept2020 %>%
 ##No significance 
 
 
-Sept_DOC <- ggline(Sept2020, x="date", y = "mb.doc", color = "treatment", 
+Sept_DOC <- ggline(Sept2020, x="date", y = "mb.doc", color = "treatment", title = "September 2020",
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
@@ -211,7 +211,7 @@ get_anova_table(res.aov)
 ##No significance between effects
 
 ##June DOC plot
-June_DOC <- ggline(June2021, x="date", y = "mb.doc", color = "treatment", 
+June_DOC <- ggline(June2021, x="date", y = "mb.doc", color = "treatment", title = "June 2021",
                    add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                    size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = c('darkgoldenrod1', 'forestgreen', 'chocolate4')) +
@@ -269,7 +269,7 @@ get_anova_table(res.aov)
 ##No significance from within effects
 
 ##June TM DOC plot
-TM_DOC <- ggline(TM2021_1, x="date", y = "mb.doc", color = "treatment", 
+TM_DOC <- ggline(TM2021_1, x="date", y = "mb.doc", color = "treatment", title = "Todd's Meadow",
                  add = c("mean_se", "jitter"), legend.title = "Treatment", legend = 'right', 
                  size =1, shape = "treatment", point.size = 5) +
   scale_color_manual(values = 'blue') +
@@ -851,7 +851,7 @@ legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend =
         legend.title = element_text(size = 30, face = 'bold', color = 'black'),
         legend.key.size = unit(5, 'cm'), legend.text = element_text(size = 30))
 
-legend1 <- cowplot::get_legend(legend_1)
+legend1 <- cowplot::get_plot_component(legend_1, 'guide-box-bottom', return_all = TRUE)
 
 
 DOC_TDN_CN <- cowplot::plot_grid(Sept_DOC + theme(legend.position="none"), 
