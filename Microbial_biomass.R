@@ -80,7 +80,7 @@ plot_theme <- function(){
     axis.title.x = element_text(size = 28, color = 'black'),
     axis.title.y = element_text(size = 32, color = 'black'),
     axis.ticks=element_blank(),
-    plot.title = element_text(hjust = 0.5, face = 'bold', size = 32, color = 'black'),
+    plot.title = element_text(hjust = 0.5, face = 'bold', size = 40, color = 'black'),
     legend.position = 'bottom', legend.box = 'vertical', 
     legend.background = element_rect(size = 0.5), 
     legend.title = element_text(size = 30, face = 'bold', color = 'black'),
