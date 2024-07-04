@@ -351,7 +351,8 @@ POX_Sept_plot<- ggline(Sept2020, x="date", y = "enzyme.pox", color = "treatment"
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =30000, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=30000, label = "Post", color = 'black', size = 9) +
-  ylim(0, 30000)
+  scale_y_continuous(labels = scales::comma, limits = c(0, 30000)) 
+
 
 
 
@@ -620,7 +621,8 @@ POX_June_plot<- ggline(June2021, x="date", y = "enzyme.pox", color = "treatment"
     y.position = c(27000, 25000, 23000, 21000),
     label = c("*", "**", "*", "***"), 
     label.size = 10,
-    tip.length = 0.01, size = 1.5)+ ylim (0,30000)
+    tip.length = 0.01, size = 1.5)+ 
+  scale_y_continuous(labels = scales::comma, limits = c(0, 30000)) 
 
 
 ##Todd's Meadow
@@ -863,7 +865,7 @@ POX_JuneTM_plot<- ggline(TM2021, x="date", y = "enzyme.pox", color = "treatment"
   geom_vline(xintercept = 1.3, linetype = 'dotted', color = 'black', size = 1.5) +
   geom_text(x=0.85, y =30000, label = "Pre", color = 'black', size = 9) +
   geom_text(x=1.85, y=30000, label = "Post", color = 'black', size = 9) +
-  ylim(0,30000)
+  scale_y_continuous(labels = scales::comma, limits = c(0, 30000)) 
 
 ##Compare Sampling Campaigns
 
@@ -1245,7 +1247,7 @@ legend_1 <- ggline(all_pulse, x="date", y = "ph", color = "treatment",  legend =
         legend.title = element_text(size = 30, face = 'bold', color = 'black'),
         legend.key.size = unit(3, 'cm'), legend.text = element_text(size = 30))
 
-legend1 <- cowplot::get_legend(legend_1)
+legend1 <- cowplot::get_plot_component(legend_1, 'guide-box-bottom', return_all = TRUE)
 legend2 <- cowplot::get_legend(vector_sampling.campaign)
 legend3 <- cowplot::get_legend(LAP_sampling.campaign)
 combined_legends <- cowplot::plot_grid(legend1, legend3, align = "hv", nrow = 1,
